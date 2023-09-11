@@ -29,7 +29,7 @@ const Authlogin = () => {
 
   return (
     <div className="h-[100vh] w-full bg-[#0D141D] flex flex-col items-center justify-center">
-      <div className="md:w-[500px] p-5 md:p-10 flex flex-col md:gap-6 bg-[#363944] rounded-3xl">
+      <div className="min-w-[300px] md:w-[500px] p-5 md:p-10 flex flex-col md:gap-6 bg-[#363944] rounded-2xl">
         <Link to={"/"}>
           <div className="w-[150px] md:w-[210px] mx-auto text-center">
             <img

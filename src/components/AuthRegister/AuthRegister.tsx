@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { AiOutlineUser } from "react-icons/ai";
 import { FiUsers } from "react-icons/fi";
+import AuthFooter from "../AuthFooter/AuthFooter";
 
 const AuthRegister = () => {
   const {
@@ -37,8 +38,8 @@ const AuthRegister = () => {
   };
 
   return (
-    <div className="border border-red-300 h-[100vh] w-full bg-[#0D141D] flex flex-col items-center justify-center">
-      <div className="md:w-[600px] p-5 md:p-8 flex flex-col md:gap-4 bg-[#363944] rounded-3xl">
+    <div className="border border-red-300 md:h-[100vh] w-full bg-[#0D141D] flex flex-col  justify-center p-5 pb-0 md:p-0">
+      <div className="min-w-[280px] md:w-[600px] p-5 md:p-8 flex flex-col md:gap-4 bg-[#363944] rounded-2xl m-auto">
         <Link to={"/"}>
           <div className="w-[150px] md:w-[210px] mx-auto text-center">
             <img
@@ -49,14 +50,14 @@ const AuthRegister = () => {
           </div>
         </Link>
 
-        <h3 className="text-center text-white font-semibold text-xl">
+        <h3 className="text-center text-white font-semibold md:text-xl">
           Please select how you'd like to register.
         </h3>
 
-        <div className="my-3 flex flex-col gap-3">
-          <div className=" flex justify-between">
+        <div className="my-3 flex flex-col gap-2">
+          <div className=" flex md:flex-row flex-col justify-between gap-2">
             <div
-              className={`bg-[#141C26] p-8 flex flex-col gap-3 w-[49%] rounded-md cursor-pointer ${
+              className={`bg-[#141C26] p-5 md:p-8 flex flex-col gap-3 md:w-[50%] rounded-md cursor-pointer ${
                 user.usertype === "agent" ? "border border-[#1EE0AC]" : ""
               }`}
               onClick={() => setType("agent")}
@@ -64,9 +65,9 @@ const AuthRegister = () => {
               <AiOutlineUser
                 className={`${
                   user.usertype === "agent" ? "text-[#1EE0AC]" : "text-white"
-                } text-3xl font-bold`}
+                } text-2xl md:text-3xl font-bold`}
               />
-              <h5 className="text-white text-lg">I am a Bet9ja agent</h5>
+              <h5 className="text-white md:text-lg">I am a Bet9ja agent</h5>
 
               <p className="text-[#B6C6E3] text-sm">
                 Applicant must be a verifiable Super Agent with Bet9ja.
@@ -74,7 +75,7 @@ const AuthRegister = () => {
             </div>
 
             <div
-              className={`bg-[#141C26] p-8 flex flex-col gap-3 w-[49%] rounded-md cursor-pointer ${
+              className={`bg-[#141C26] p-5 md:p-8 flex flex-col gap-3 md:w-[50%] rounded-md cursor-pointer ${
                 user.usertype === "ngo" ? "border border-[#1EE0AC]" : ""
               }`}
               onClick={() => setType("ngo")}
@@ -82,9 +83,9 @@ const AuthRegister = () => {
               <FiUsers
                 className={`${
                   user.usertype === "ngo" ? "text-[#1EE0AC]" : "text-white"
-                } text-3xl font-bold`}
+                } text-2xl md:text-3xl font-bold`}
               />
-              <h5 className="text-white text-lg">We are an NGO</h5>
+              <h5 className="text-white md:text-lg">We are an NGO</h5>
 
               <p className="text-[#B6C6E3] text-sm">
                 Applicant must be a registered NGO/Social Enterprise with at
@@ -103,6 +104,7 @@ const AuthRegister = () => {
           </button>
         </div>
       </div>
+      <AuthFooter />
     </div>
   );
 };
