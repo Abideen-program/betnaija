@@ -15,7 +15,7 @@ const AuthFooter = () => {
   };
 
   return (
-    <div className="bg-[#101924] border border-[#80948F] md:h-14 mt-7 md:mt-auto flex flex-col justify-center items-center lg:flex-row lg:items-center lg:justify-around px-3 gap-3 mb-2 md:mb-0">
+    <div className="bg-[#101924] border border-[#80948F] md:min-h-[70px] md:mt-auto flex flex-col justify-center items-center lg:flex-row lg:items-center lg:justify-around px-3 gap-3 mb-2 md:mb-0 z-20">
       <p className="text-[#80948F] text-center text-xs lg:text-base">
         &copy; 2023 Bet9ja Foundation. All Rights Reserved.
       </p>
@@ -43,7 +43,7 @@ const AuthFooter = () => {
             {openSelect && (
               <div className="absolute -top-[230px]  rounded-md border border-[#80948F]">
                 <li
-                  className="w-full border-b border-[#80948F] flex items-center justify-center text-white gap-4 py-4 px-8 bg-[#141C26] rounded-t-md cursor-pointer hover:bg-[#11171F] transition-all duration-300"
+                  className="w-full border-b border-[#80948F] flex items-center justify-center text-white gap-4 py-4 px-8 bg-[#142620] rounded-t-md cursor-pointer hover:bg-[#11171F] transition-all duration-300"
                   onClick={() => setSelect("English")}
                 >
                   <img
@@ -55,7 +55,7 @@ const AuthFooter = () => {
                 </li>
 
                 <li
-                  className="w-full border-b border-[#80948F] flex items-center justify-center text-white gap-4 py-4 px-8 cursor-pointer hover:bg-[#11171F] transition-all duration-300"
+                  className="w-full border-b border-[#80948F] flex items-center justify-center text-white gap-4 py-4 px-8 cursor-pointer bg-[#142620] hover:bg-[#11171F] transition-all duration-300"
                   onClick={() => setSelect("Español")}
                 >
                   <img
@@ -67,7 +67,7 @@ const AuthFooter = () => {
                 </li>
 
                 <li
-                  className="w-full border-b border-[#80948F] flex items-center justify-center text-white gap-4 py-4 px-8 cursor-pointer hover:bg-[#11171F] transition-all duration-300"
+                  className="w-full border-b border-[#80948F] flex items-center justify-center text-white gap-4 py-4 px-8 cursor-pointer bg-[#142620] hover:bg-[#11171F] transition-all duration-300"
                   onClick={() => setSelect("Français")}
                 >
                   <img
@@ -79,7 +79,7 @@ const AuthFooter = () => {
                 </li>
 
                 <li
-                  className="w-full flex items-center justify-center text-white gap-4 py-4 px-8  cursor-pointer hover:bg-[#11171F] transition-all duration-300"
+                  className="w-full flex items-center justify-center text-white gap-4 py-4 px-8  cursor-pointer bg-[#142620] hover:bg-[#11171F] transition-all duration-300 rounded-b-md"
                   onClick={() => setSelect("Türkçe")}
                 >
                   <img

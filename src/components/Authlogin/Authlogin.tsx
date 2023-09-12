@@ -29,22 +29,22 @@ const Authlogin = () => {
 
   return (
     <div className="h-[100vh] w-full bg-[#0D141D] flex flex-col items-center justify-center">
-      <div className="min-w-[300px] md:w-[500px] p-5 md:p-10 flex flex-col md:gap-6 bg-[#363944] rounded-2xl">
-        <Link to={"/"}>
-          <div className="w-[150px] md:w-[210px] mx-auto text-center">
+      <div className="min-w-[300px] md:w-[500px] p-5 md:p-10 flex flex-col md:gap-6 bg-[#363944] rounded-2xl border border-[#B6C6E3]">
+        <div className="w-[150px] md:w-[210px] mx-auto text-center">
+          <Link to={"/"}>
             <img
               src={AuthLogo}
               alt="Betnaija Logo"
-              className="object-contain w-full"
+              className="object-contain w-[150px] mx-auto"
             />
-            <div className="flex flex-col gap-3 mt-2 md:mt-7">
-              <h2 className="text-white font-bold md:text-2xl tracking-wide">
-                Welcome Back!
-              </h2>
-              <p className="text-[#6B7993] text-sm md:text-base">Login</p>
-            </div>
+          </Link>
+          <div className="flex flex-col gap-3 mt-2 md:mt-7">
+            <h2 className="text-white font-bold md:text-2xl tracking-wide">
+              Welcome Back!
+            </h2>
+            <p className="text-[#6B7993] text-sm md:text-base">Login</p>
           </div>
-        </Link>
+        </div>
 
         <div className="my-3 md:my-6">
           <form
@@ -59,7 +59,7 @@ const Authlogin = () => {
                 Email
               </label>
               <input
-                className="border border-[#B6C6E3] focus:outline-none w-full p-2 bg-[#141C26] placeholder:text-[#B6C6E3] text-white text-sm md:text-base rounded-md"
+                className="border border-[#B6C6E3] focus:outline-none w-full p-3 bg-[#141C26] placeholder:text-[#B6C6E3] text-white text-sm md:text-base rounded-md"
                 {...register("email", { required: true })}
                 name="email"
                 id="email"
@@ -86,7 +86,7 @@ const Authlogin = () => {
                 </Link>
               </div>
               <input
-                className="border border-[#B6C6E3] focus:outline-none w-full p-2 bg-[#141C26] placeholder:text-[#B6C6E3] text-white text-sm md:text-base  rounded-md"
+                className="border border-[#B6C6E3] focus:outline-none w-full p-3 bg-[#141C26] placeholder:text-[#B6C6E3] text-white text-sm md:text-base  rounded-md"
                 {...register("password", { required: true })}
                 name="password"
                 id="password"
