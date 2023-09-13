@@ -1,24 +1,12 @@
 import { useState } from "react";
 import AuthLogo from "../../assets/logo.png";
 import { Link } from "react-router-dom";
-import { useForm, SubmitHandler } from "react-hook-form";
 import { AiOutlineUser } from "react-icons/ai";
 import { FiUsers } from "react-icons/fi";
 import AuthFooter from "../AuthFooter/AuthFooter";
 import AuthForm from "./AuthForm";
 
 const AuthRegister = () => {
-  const {
-    // register,
-    // handleSubmit,
-    // watch,
-    // getValues,
-    // setValue,
-    // reset
-    // formState: { errors, isValid, isSubmitting },
-    // formState: { errors, isValid },
-  } = useForm({ mode: "all" });
-
   const [user, setUser] = useState({
     usertype: "",
     ngo_name: "",
@@ -116,7 +104,7 @@ const AuthRegister = () => {
       )}
       {step === 1 && (
         <div>
-          <AuthForm />
+          <AuthForm user={user} setUser={setUser}/>
         </div>
       )}
       <AuthFooter />

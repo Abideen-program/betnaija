@@ -2,31 +2,38 @@ import { useState } from "react";
 import AuthLogo from "../../assets/logo.png";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { login } from "../../controller/AuthController";
+import { authRegister } from "../../controller/AuthController";
+import { RegisterInputs, AuthFormProps } from "../../utils/Types";
 
-type Inputs = {
-  email: string;
-  password: string;
-  number: number;
-  cpassword: string;
-};
-
-const AuthForm = () => {
+const AuthForm = ({ user, setUser }: AuthFormProps) => {
   const {
     register,
     handleSubmit,
-    // watch,
+    watch,
     // getValues,
     // setValue,
     // reset
     // formState: { errors, isValid, isSubmitting },
     formState: { errors, isValid },
-  } = useForm<Inputs>({ mode: "all" });
+  } = useForm<RegisterInputs>({ mode: "all" });
 
   const [loading, setLoading] = useState<boolean>(false);
 
-  const onSubmit: SubmitHandler<Inputs> = (formData) => {
-    login(formData, setLoading);
+  const onSubmit: SubmitHandler<RegisterInputs> = (formData) => {
+    setUser({
+      ...user,
+      email: formData.email,
+      phone: formData.phone,
+      password: formData.password,
+    });
+    const newFormData = {
+      email: formData.email,
+      password: formData.password,
+      phone: formData.phone,
+      password_confirmation: formData.password_confirmation,
+      usertype: user.usertype,
+    };
+    authRegister(newFormData, setLoading);
   };
 
   return (
@@ -79,20 +86,20 @@ const AuthForm = () => {
 
             <div className="flex flex-col gap-1 relative">
               <label
-                htmlFor="number"
+                htmlFor="phone"
                 className="text-white text-sm md:text-base md:font-medium"
               >
-                Phone Number
+                Phone phone
               </label>
               <input
                 className="border border-[#B6C6E3] focus:outline-none w-full p-3 bg-[#141C26] placeholder:text-[#B6C6E3] text-white text-sm md:text-base rounded-md"
-                {...register("number", { required: true })}
-                name="number"
-                id="number"
+                {...register("phone", { required: true })}
+                name="phone"
+                id="phone"
                 placeholder="Phone Number"
                 type="tel"
               />
-              {errors.number && (
+              {errors.phone && (
                 <p className="absolute right-0 bg-[#ED756B] p-1 text-xs text-white rounded-md">
                   This field is required
                 </p>
@@ -123,22 +130,29 @@ const AuthForm = () => {
 
             <div className="flex flex-col gap-1 relative">
               <label
-                htmlFor="cpassword"
+                htmlFor="password_confirmation"
                 className="text-white text-sm md:text-base md:font-medium"
               >
                 Confirm Password
               </label>
               <input
                 className="border border-[#B6C6E3] focus:outline-none w-full p-3 bg-[#141C26] placeholder:text-[#B6C6E3] text-white text-sm md:text-base rounded-md"
-                {...register("cpassword", { required: true })}
-                name="cpassword"
-                id="cpassword"
+                {...register("password_confirmation", {
+                  required: true,
+                  validate: (val) => {
+                    if (watch("password") != val) {
+                      return "Your passwords do no match";
+                    }
+                  },
+                })}
+                name="password_confirmation"
+                id="password_confirmation"
                 placeholder="Confirm Password"
                 type="password"
               />
-              {errors.cpassword && (
+              {errors.password_confirmation && (
                 <p className="absolute right-0 bg-[#ED756B] p-1 text-xs text-white rounded-md">
-                  This field is required
+                  {errors.password_confirmation.message}
                 </p>
               )}
             </div>
