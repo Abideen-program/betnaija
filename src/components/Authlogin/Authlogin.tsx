@@ -1,7 +1,7 @@
 import { useState } from "react";
 import AuthLogo from "../../assets/logo.png";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../controller/AuthController";
 
 type Inputs = {
@@ -10,6 +10,8 @@ type Inputs = {
 };
 
 const Authlogin = () => {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -22,9 +24,10 @@ const Authlogin = () => {
   } = useForm<Inputs>({ mode: "all" });
 
   const [loading, setLoading] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const onSubmit: SubmitHandler<Inputs> = (formData) => {
-    login(formData, setLoading);
+    login(formData, setLoading, navigate);
   };
 
   return (
@@ -85,14 +88,22 @@ const Authlogin = () => {
                   <p className="text-xs text-[#14B151]">Forgot Password?</p>
                 </Link>
               </div>
-              <input
-                className="border border-[#B6C6E3] focus:outline-none w-full p-3 bg-[#141C26] placeholder:text-[#B6C6E3] text-white text-sm md:text-base  rounded-md"
-                {...register("password", { required: true })}
-                name="password"
-                id="password"
-                placeholder="Enter your password address"
-                type="password"
-              />
+              <div className="relative flex flex-col items-center justify-center">
+                <input
+                  className="border border-[#B6C6E3] focus:outline-none w-full p-3 bg-[#141C26] placeholder:text-[#B6C6E3] text-white text-sm md:text-base  rounded-md"
+                  {...register("password", { required: true })}
+                  name="password"
+                  id="password"
+                  placeholder="Enter your password address"
+                  type={showPassword ? "text" : "password"}
+                />
+                <span
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="text-xs absolute text-[#B6C6E3] cursor-pointer right-4 my-auto"
+                >
+                  {showPassword ? "Hide" : "Show"}
+                </span>
+              </div>
               {errors.password && (
                 <p className="absolute right-0 bg-[#ED756B] p-1 text-xs text-white rounded-md">
                   This field is required

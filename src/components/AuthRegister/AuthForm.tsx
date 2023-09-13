@@ -1,11 +1,13 @@
 import { useState } from "react";
 import AuthLogo from "../../assets/logo.png";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { authRegister } from "../../controller/AuthController";
 import { RegisterInputs, AuthFormProps } from "../../utils/Types";
 
 const AuthForm = ({ user, setUser }: AuthFormProps) => {
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -33,7 +35,7 @@ const AuthForm = ({ user, setUser }: AuthFormProps) => {
       password_confirmation: formData.password_confirmation,
       usertype: user.usertype,
     };
-    authRegister(newFormData, setLoading);
+    authRegister(newFormData, setLoading, navigate);
   };
 
   return (
@@ -113,14 +115,22 @@ const AuthForm = ({ user, setUser }: AuthFormProps) => {
               >
                 Password
               </label>
-              <input
-                className="border border-[#B6C6E3] focus:outline-none w-full p-3 bg-[#141C26] placeholder:text-[#B6C6E3] text-white text-sm md:text-base rounded-md"
-                {...register("password", { required: true })}
-                name="password"
-                id="password"
-                placeholder="Enter Your Password"
-                type="password"
-              />
+              <div className="relative flex flex-col items-center justify-center">
+                <input
+                  className="border border-[#B6C6E3] focus:outline-none w-full p-3 bg-[#141C26] placeholder:text-[#B6C6E3] text-white text-sm md:text-base  rounded-md"
+                  {...register("password", { required: true })}
+                  name="password"
+                  id="password"
+                  placeholder="Enter your password address"
+                  type={showPassword ? "text" : "password"}
+                />
+                <span
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="text-xs absolute text-[#B6C6E3] cursor-pointer right-4 my-auto"
+                >
+                  {showPassword ? "Hide" : "Show"}
+                </span>
+              </div>
               {errors.password && (
                 <p className="absolute right-0 bg-[#ED756B] p-1 text-xs text-white rounded-md">
                   This field is required
@@ -135,21 +145,30 @@ const AuthForm = ({ user, setUser }: AuthFormProps) => {
               >
                 Confirm Password
               </label>
-              <input
-                className="border border-[#B6C6E3] focus:outline-none w-full p-3 bg-[#141C26] placeholder:text-[#B6C6E3] text-white text-sm md:text-base rounded-md"
-                {...register("password_confirmation", {
-                  required: true,
-                  validate: (val) => {
-                    if (watch("password") != val) {
-                      return "Your passwords do no match";
-                    }
-                  },
-                })}
-                name="password_confirmation"
-                id="password_confirmation"
-                placeholder="Confirm Password"
-                type="password"
-              />
+              <div className="relative flex flex-col items-center justify-center">
+                <input
+                  className="border border-[#B6C6E3] focus:outline-none w-full p-3 bg-[#141C26] placeholder:text-[#B6C6E3] text-white text-sm md:text-base  rounded-md"
+                  {...register("password_confirmation", {
+                    required: true,
+                    validate: (val) => {
+                      if (watch("password") != val) {
+                        return "Your passwords do no match";
+                      }
+                    },
+                  })}
+                  name="password_confirmation"
+                  id="password_confirmation"
+                  placeholder="Confirm Password"
+                  type={showPassword ? "text" : "password"}
+                />
+                <span
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="text-xs absolute text-[#B6C6E3] cursor-pointer right-4 my-auto"
+                >
+                  {showPassword ? "Hide" : "Show"}
+                </span>
+              </div>
+
               {errors.password_confirmation && (
                 <p className="absolute right-0 bg-[#ED756B] p-1 text-xs text-white rounded-md">
                   {errors.password_confirmation.message}

@@ -1,11 +1,17 @@
 import axios from "../utils/Axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { NavigateFunction } from "react-router-dom";
 import { LoginInputs, RegisterInputs } from "../utils/Types";
 
 type SetLoading = React.Dispatch<React.SetStateAction<boolean>>;
+type Navigate = NavigateFunction;
 
-export const login = async (data: LoginInputs, setLoading: SetLoading) => {
+export const login = async (
+  data: LoginInputs,
+  setLoading: SetLoading,
+  navigate: Navigate
+) => {
   setLoading(true);
   await axios
     .post("auth/login", data)
@@ -27,14 +33,7 @@ export const login = async (data: LoginInputs, setLoading: SetLoading) => {
 
           //check if the user has not verifed his email
           if (user.data.user.email_verified_at == null) {
-            window.history.pushState(
-              `${
-                process.env.PUBLIC_URL ? process.env.PUBLIC_URL : "/auth-otp"
-              }`,
-              "auth-otp",
-              `${process.env.PUBLIC_URL ? process.env.PUBLIC_URL : "/auth-otp"}`
-            );
-            window.location.reload();
+            navigate("/auth-otp");
           }
         }
       } else {
@@ -50,7 +49,8 @@ export const login = async (data: LoginInputs, setLoading: SetLoading) => {
 
 export const authRegister = async (
   data: RegisterInputs,
-  setLoading: SetLoading
+  setLoading: SetLoading,
+  navigate: Navigate
 ) => {
   setLoading(true);
   await axios
@@ -71,13 +71,7 @@ export const authRegister = async (
           localStorage.setItem("newuser", JSON.stringify(user["data"]["user"]));
           localStorage.setItem("_newToken", user["data"]["access_token"]);
 
-          window.history.pushState(
-            `${process.env.PUBLIC_URL ? process.env.PUBLIC_URL : "/"}`,
-            "",
-            `${process.env.PUBLIC_URL ? process.env.PUBLIC_URL : "auth-otp"}`
-          );
-
-          window.location.reload();
+          navigate("/auth-otp");
         }
       } else {
         toast.error(response.data.message, { theme: "colored" });
@@ -85,6 +79,7 @@ export const authRegister = async (
     })
     .catch((err) => {
       toast.error(err.response.data, { theme: "colored" });
+      console.log(err);
     });
   setLoading(false);
 };
