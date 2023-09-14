@@ -8,6 +8,7 @@ import {
   OtpData,
   ResendOtpData,
   EmailInputs,
+  ChangePasswordData,
 } from "../utils/Types";
 
 type SetLoading = React.Dispatch<React.SetStateAction<boolean>>;
@@ -39,6 +40,15 @@ export const login = async (
           //check if the user has not verifed his email
           if (user.data.user.email_verified_at == null) {
             navigate("/auth-otp");
+          } //check if the user has completed his registration
+          else if (
+            user.data.user.email_verified_at != null &&
+            (user.data.user.usermeta == null ||
+              user.data.user.usermeta.name == undefined)
+          ) {
+            navigate('/user-info')
+          } else {
+            navigate('/')
           }
         }
       } else {
@@ -136,8 +146,8 @@ export const forgetPassword = async (
     .post("auth/password/requestPassword", data)
     .then((response) => {
       if (response.data.status === true) {
-        localStorage.setItem('password', JSON.stringify(response.data.data))
-        navigate('/auth-change-password')
+        // localStorage.setItem("password", JSON.stringify(response.data.data));
+        navigate("/auth-change-password");
         toast.success(response.data.message, { theme: "colored" });
       } else {
         toast.error(response.data.message, { theme: "colored" });
@@ -146,5 +156,28 @@ export const forgetPassword = async (
     .catch((err) => {
       toast.error(err.response.data, { theme: "colored" });
     });
-    setLoading(false);
+  setLoading(false);
+};
+
+export const resetPassword = async (
+  data: ChangePasswordData,
+  setLoading: SetLoading,
+  naviagte: Navigate
+) => {
+  setLoading(true);
+  await axios
+    .post("auth/password/resetPassword", data)
+    .then((response) => {
+      if (response.data.status === true) {
+        console.log(response);
+        toast.success(response.data.message, { theme: "colored" });
+        naviagte("/");
+      } else {
+        toast.error(response.data.message, { theme: "colored" });
+      }
+    })
+    .catch((err) => {
+      toast.error(err.response.data, { theme: "colored" });
+    });
+  setLoading(false);
 };

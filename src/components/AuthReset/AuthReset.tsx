@@ -24,6 +24,7 @@ const AuthReset = () => {
 
   const onSubmit: SubmitHandler<EmailInputs> = (formData) => {
     const data = { email: formData.email };
+    localStorage.setItem("email", JSON.stringify(data));
     forgetPassword(data, setLoading, navigate);
   };
 

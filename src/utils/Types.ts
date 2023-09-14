@@ -57,3 +57,9 @@ export type ResendOtpData = {
 export type EmailInputs = {
   email: string;
 };
+
+export type ChangePasswordData = {
+  otp: string;
+  password: string;
+  password_confirmation: string;
+};
