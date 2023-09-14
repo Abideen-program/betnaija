@@ -31,7 +31,7 @@ const AuthRegister = () => {
   return (
     <>
       {step === 0 && (
-        <div className="w-full h-[100vh] bg-[#0D141D] flex flex-col  justify-center p-5 md:p-0">
+        <div className="w-full md:h-[100vh] bg-[#0D141D] flex flex-col  justify-center p-5 md:p-0">
           <div className="min-w-[280px] md:w-[600px] p-5 md:p-8 flex flex-col md:gap-4 bg-[#363944] rounded-2xl m-auto border border-[#B6C6E3]">
             <Link to={"/"}>
               <div className="w-[150px] md:w-[210px] mx-auto text-center">

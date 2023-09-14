@@ -39,7 +39,7 @@ const AuthForm = ({ user, setUser }: AuthFormProps) => {
   };
 
   return (
-    <div className="bg-[#0D141D] py-10 flex flex-col  justify-center">
+    <div className="md:h-[100vh] bg-[#0D141D] py-10 flex flex-col  justify-center">
       <div className="min-w-[300px] md:w-[500px] p-5 flex flex-col bg-[#363944] rounded-2xl m-auto border border-[#B6C6E3]">
         <div className="w-[150px] md:w-[400px] mx-auto text-center">
           <Link to={"/"}>

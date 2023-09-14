@@ -15,7 +15,7 @@ const AuthFooter = () => {
   };
 
   return (
-    <div className="bg-[#101924] border border-[#80948F] md:min-h-[70px] md:mt-auto flex flex-col justify-center items-center lg:flex-row lg:items-center lg:justify-around px-3 gap-3 mb-2 md:mb-0 z-20">
+    <div className="bg-[#101924] border border-[#80948F] md:min-h-[70px] md:mt-auto flex flex-col justify-center items-center lg:flex-row lg:items-center lg:justify-around p-3 gap-3 md:mb-0 z-20">
       <p className="text-[#80948F] text-center text-xs lg:text-base">
         &copy; 2023 Bet9ja Foundation. All Rights Reserved.
       </p>
