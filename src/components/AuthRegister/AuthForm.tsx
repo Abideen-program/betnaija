@@ -40,7 +40,7 @@ const AuthForm = ({ user, setUser }: AuthFormProps) => {
 
   return (
     <div className="md:h-[100vh] bg-[#0D141D] py-10 flex flex-col  justify-center">
-      <div className="min-w-[300px] md:w-[500px] p-5 flex flex-col bg-[#363944] rounded-2xl m-auto border border-[#B6C6E3]">
+      <div className="min-w-[300px] md:w-[500px] py-3 px-5 flex flex-col bg-[#363944] rounded-2xl m-auto border border-[#B6C6E3]">
         <div className="w-[150px] md:w-[400px] mx-auto text-center">
           <Link to={"/"}>
             <img
@@ -77,7 +77,7 @@ const AuthForm = ({ user, setUser }: AuthFormProps) => {
                 name="email"
                 id="email"
                 placeholder="Enter Address"
-                type="text"
+                type="email"
               />
               {errors.email && (
                 <p className="absolute right-0 bg-[#ED756B] p-1 text-xs text-white rounded-md">
@@ -126,7 +126,7 @@ const AuthForm = ({ user, setUser }: AuthFormProps) => {
                 />
                 <span
                   onClick={() => setShowPassword(!showPassword)}
-                  className="text-xs absolute text-[#B6C6E3] cursor-pointer right-4 my-auto"
+                  className="text-xs absolute text-[#B6C6E3] cursor-pointer right-2 my-auto"
                 >
                   {showPassword ? "Hide" : "Show"}
                 </span>
@@ -149,7 +149,7 @@ const AuthForm = ({ user, setUser }: AuthFormProps) => {
                 <input
                   className="border border-[#B6C6E3] focus:outline-none w-full p-3 bg-[#141C26] placeholder:text-[#B6C6E3] text-white text-sm md:text-base  rounded-md"
                   {...register("password_confirmation", {
-                    required: true,
+                    required: 'This field is required',
                     validate: (val) => {
                       if (watch("password") != val) {
                         return "Your passwords do no match";
@@ -163,7 +163,7 @@ const AuthForm = ({ user, setUser }: AuthFormProps) => {
                 />
                 <span
                   onClick={() => setShowPassword(!showPassword)}
-                  className="text-xs absolute text-[#B6C6E3] cursor-pointer right-4 my-auto"
+                  className="text-xs absolute text-[#B6C6E3] cursor-pointer right-2 my-auto"
                 >
                   {showPassword ? "Hide" : "Show"}
                 </span>

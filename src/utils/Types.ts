@@ -53,3 +53,7 @@ export type OtpData = {
 export type ResendOtpData = {
   email?: string;
 };
+
+export type EmailInputs = {
+  email: string;
+};

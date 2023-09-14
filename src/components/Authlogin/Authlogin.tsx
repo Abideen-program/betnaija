@@ -3,11 +3,7 @@ import AuthLogo from "../../assets/logo.png";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../controller/AuthController";
-
-type Inputs = {
-  email: string;
-  password: string;
-};
+import { LoginInputs } from "../../utils/Types";
 
 const Authlogin = () => {
   const navigate = useNavigate();
@@ -21,12 +17,12 @@ const Authlogin = () => {
     // reset
     // formState: { errors, isValid, isSubmitting },
     formState: { errors, isValid },
-  } = useForm<Inputs>({ mode: "all" });
+  } = useForm<LoginInputs>({ mode: "all" });
 
   const [loading, setLoading] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  const onSubmit: SubmitHandler<Inputs> = (formData) => {
+  const onSubmit: SubmitHandler<LoginInputs> = (formData) => {
     login(formData, setLoading, navigate);
   };
 
@@ -67,7 +63,7 @@ const Authlogin = () => {
                 name="email"
                 id="email"
                 placeholder="Enter your email address"
-                type="text"
+                type="email"
               />
               {errors.email && (
                 <p className="absolute right-0 bg-[#ED756B] p-1 text-xs text-white rounded-md">
@@ -99,13 +95,13 @@ const Authlogin = () => {
                 />
                 <span
                   onClick={() => setShowPassword(!showPassword)}
-                  className="text-xs absolute text-[#B6C6E3] cursor-pointer right-4 my-auto"
+                  className="text-xs absolute text-[#B6C6E3] cursor-pointer right-2 my-auto"
                 >
                   {showPassword ? "Hide" : "Show"}
                 </span>
               </div>
               {errors.password && (
-                <p className="absolute right-0 bg-[#ED756B] p-1 text-xs text-white rounded-md">
+                <p className="absolute -bottom-6 right-0 bg-[#ED756B] p-1 text-xs text-white rounded-md">
                   This field is required
                 </p>
               )}
@@ -113,7 +109,9 @@ const Authlogin = () => {
 
             <button
               disabled={loading || !isValid}
-              className="bg-[#14B151] text-sm py-2 font-medium md:text-base md:font-semibold md:py-3 text-white rounded-md"
+              className={`${
+                loading || !isValid ? "bg-[#25754B]" : "bg-[#14B151]"
+              }  text-sm py-2 font-medium md:text-base md:font-semibold md:py-3 text-white rounded-md mt-3`}
               type="submit"
             >
               {loading ? "loading..." : "Sign in"}

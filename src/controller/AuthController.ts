@@ -7,6 +7,7 @@ import {
   RegisterInputs,
   OtpData,
   ResendOtpData,
+  EmailInputs,
 } from "../utils/Types";
 
 type SetLoading = React.Dispatch<React.SetStateAction<boolean>>;
@@ -123,4 +124,27 @@ export const resendOtp = async (data: ResendOtpData) => {
     .catch((err) => {
       toast.error(err.response.data, { theme: "colored" });
     });
+};
+
+export const forgetPassword = async (
+  data: EmailInputs,
+  setLoading: SetLoading,
+  navigate: Navigate
+) => {
+  setLoading(true);
+  await axios
+    .post("auth/password/requestPassword", data)
+    .then((response) => {
+      if (response.data.status === true) {
+        localStorage.setItem('password', JSON.stringify(response.data.data))
+        navigate('/auth-change-password')
+        toast.success(response.data.message, { theme: "colored" });
+      } else {
+        toast.error(response.data.message, { theme: "colored" });
+      }
+    })
+    .catch((err) => {
+      toast.error(err.response.data, { theme: "colored" });
+    });
+    setLoading(false);
 };
