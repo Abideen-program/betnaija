@@ -2,7 +2,12 @@ import axios from "../utils/Axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { NavigateFunction } from "react-router-dom";
-import { LoginInputs, RegisterInputs } from "../utils/Types";
+import {
+  LoginInputs,
+  RegisterInputs,
+  OtpData,
+  ResendOtpData,
+} from "../utils/Types";
 
 type SetLoading = React.Dispatch<React.SetStateAction<boolean>>;
 type Navigate = NavigateFunction;
@@ -17,7 +22,6 @@ export const login = async (
     .post("auth/login", data)
     .then((response) => {
       if (response.data.status === true) {
-        console.log(response);
         let user = response.data;
         if (
           user.data.user == undefined ||
@@ -57,7 +61,6 @@ export const authRegister = async (
     .post("auth/register", data)
     .then((response) => {
       if (response.data.status === true) {
-        console.log(response);
         let user = response.data;
         if (user.data.user === undefined) {
           toast.error(
@@ -81,5 +84,28 @@ export const authRegister = async (
       toast.error(err.response.data, { theme: "colored" });
       console.log(err);
     });
+  setLoading(false);
+};
+
+export const validateOtp = async (
+  data: OtpData,
+  setLoading: SetLoading,
+  navigate: Navigate
+) => {
+  setLoading(true);
+  await axios
+    .post("auth/otp/validate", data)
+    .then((response) => {
+      if (response.data.status === true) {
+        console.log(response);
+        navigate("/user-info");
+      } else {
+        toast.error(response.data.message, { theme: "colored" });
+      }
+    })
+    .catch((err) => {
+      toast.error(err.response.data, { theme: "colored" });
+    });
+
   setLoading(false);
 };

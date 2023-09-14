@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import OTPInput from "react-otp-input";
 import AuthFooter from "../AuthFooter/AuthFooter";
+import { validateOtp } from "../../controller/AuthController";
 
 interface User {
   email: string;
@@ -24,6 +25,8 @@ const AuthOtp = () => {
       email: user?.email,
       otp,
     };
+
+    validateOtp(otpData, setLoading, navigate)
   };
 
   useEffect(() => {

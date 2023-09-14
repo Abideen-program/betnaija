@@ -42,5 +42,14 @@ export type RegisterInputs = {
   password: string;
   phone: string;
   password_confirmation: string;
-  usertype: string
+  usertype: string;
+};
+
+export type OtpData = {
+  email?: string;
+  otp: string;
+};
+
+export type ResendOtpData = {
+  email?: string;
 };
