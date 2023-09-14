@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import OTPInput from "react-otp-input";
 import AuthFooter from "../AuthFooter/AuthFooter";
-import { validateOtp } from "../../controller/AuthController";
+import { validateOtp, resendOtp } from "../../controller/AuthController";
 
 interface User {
   email: string;
@@ -26,7 +26,7 @@ const AuthOtp = () => {
       otp,
     };
 
-    validateOtp(otpData, setLoading, navigate)
+    validateOtp(otpData, setLoading, navigate);
   };
 
   useEffect(() => {
@@ -50,8 +50,8 @@ const AuthOtp = () => {
     return () => clearInterval(interval);
   }, [timeLeft]);
 
-  const handledResend = (e: MouseEvent<HTMLSpanElement>) => {
-    e.preventDefault();
+  const handledResend = () => {
+    resendOtp({ email: user?.email });
     setTimeLeft(179);
   };
 

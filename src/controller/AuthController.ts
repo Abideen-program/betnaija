@@ -109,3 +109,18 @@ export const validateOtp = async (
 
   setLoading(false);
 };
+
+export const resendOtp = async (data: ResendOtpData) => {
+  await axios
+    .post("auth/otp/resend", data)
+    .then((response) => {
+      if (response.data.status === true) {
+        toast.success(response.data.message, { theme: "colored" });
+      } else {
+        toast.error(response.data.message, { theme: "colored" });
+      }
+    })
+    .catch((err) => {
+      toast.error(err.response.data, { theme: "colored" });
+    });
+};
