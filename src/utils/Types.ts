@@ -63,3 +63,8 @@ export type ChangePasswordData = {
   password: string;
   password_confirmation: string;
 };
+
+export type AgentName = {
+  firstName: string;
+  lastName: string;
+};

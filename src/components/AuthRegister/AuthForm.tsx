@@ -80,7 +80,7 @@ const AuthForm = ({ user, setUser }: AuthFormProps) => {
                 type="email"
               />
               {errors.email && (
-                <p className="absolute right-0 bg-[#ED756B] p-1 text-xs text-white rounded-md">
+                <p className="absolute right-0 bg-[#ED756B] p-1 text-[10px] italic text-white rounded-md">
                   This field is required
                 </p>
               )}
@@ -102,7 +102,7 @@ const AuthForm = ({ user, setUser }: AuthFormProps) => {
                 type="tel"
               />
               {errors.phone && (
-                <p className="absolute right-0 bg-[#ED756B] p-1 text-xs text-white rounded-md">
+                <p className="absolute right-0 bg-[#ED756B] p-1 text-[10px] italic text-white rounded-md">
                   This field is required
                 </p>
               )}
@@ -132,7 +132,7 @@ const AuthForm = ({ user, setUser }: AuthFormProps) => {
                 </span>
               </div>
               {errors.password && (
-                <p className="absolute right-0 bg-[#ED756B] p-1 text-xs text-white rounded-md">
+                <p className="absolute right-0 bg-[#ED756B] p-1 text-[10px] italic text-white rounded-md">
                   This field is required
                 </p>
               )}
@@ -170,7 +170,7 @@ const AuthForm = ({ user, setUser }: AuthFormProps) => {
               </div>
 
               {errors.password_confirmation && (
-                <p className="absolute right-0 bg-[#ED756B] p-1 text-xs text-white rounded-md">
+                <p className="absolute right-0 bg-[#ED756B] p-1 text-[10px] italic text-white rounded-md">
                   {errors.password_confirmation.message}
                 </p>
               )}

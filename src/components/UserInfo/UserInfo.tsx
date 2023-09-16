@@ -1,5 +1,11 @@
+import AgentInfo from "./AgentInfo";
+
 const UserInfo = () => {
-  return <div>UserInfo</div>;
+  return (
+    <>
+      <AgentInfo />
+    </>
+  );
 };
 
 export default UserInfo;

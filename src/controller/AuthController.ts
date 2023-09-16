@@ -34,8 +34,8 @@ export const login = async (
             theme: "colored",
           });
         } else {
-          localStorage.setItem("user", JSON.stringify(user["data"]["user"]));
-          localStorage.setItem("_token", user["data"]["access_token"]);
+          localStorage.setItem("newuser", JSON.stringify(user["data"]["user"]));
+          localStorage.setItem("_newToken", user["data"]["access_token"]);
 
           //check if the user has not verifed his email
           if (user.data.user.email_verified_at == null) {

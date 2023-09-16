@@ -76,7 +76,7 @@ const ChangePassword = () => {
                 type="text"
               />
               {errors.otp && (
-                <p className="absolute right-0 bg-[#ED756B] p-1 text-xs text-white rounded-md">
+                <p className="absolute right-0 bg-[#ED756B] p-1 text-[10px] italic text-white rounded-md">
                   This field is required
                 </p>
               )}
@@ -106,7 +106,7 @@ const ChangePassword = () => {
                 </span>
               </div>
               {errors.password && (
-                <p className="absolute right-0 bg-[#ED756B] p-1 text-xs text-white rounded-md">
+                <p className="absolute right-0 bg-[#ED756B] p-1 text-[10px] italic text-white rounded-md">
                   This field is required
                 </p>
               )}
@@ -144,7 +144,7 @@ const ChangePassword = () => {
               </div>
 
               {errors.password_confirmation && (
-                <p className="absolute right-0 bg-[#ED756B] p-1 text-xs text-white rounded-md">
+                <p className="absolute right-0 bg-[#ED756B] p-1 text-[10px] italic text-white rounded-md">
                   {errors.password_confirmation.message}
                 </p>
               )}

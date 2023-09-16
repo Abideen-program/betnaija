@@ -66,7 +66,7 @@ const Authlogin = () => {
                 type="email"
               />
               {errors.email && (
-                <p className="absolute right-0 bg-[#ED756B] p-1 text-xs text-white rounded-md">
+                <p className="absolute right-0 bg-[#ED756B] p-1 text-[10px] italic text-white rounded-md">
                   This field is required
                 </p>
               )}
@@ -101,7 +101,7 @@ const Authlogin = () => {
                 </span>
               </div>
               {errors.password && (
-                <p className="absolute -bottom-6 right-0 bg-[#ED756B] p-1 text-xs text-white rounded-md">
+                <p className="absolute -bottom-6 right-0 bg-[#ED756B] p-1 text-[10px] italic text-white rounded-md">
                   This field is required
                 </p>
               )}

@@ -2,11 +2,10 @@ import { useState } from "react";
 import AuthLogo from "../../assets/logo.png";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import { EmailInputs } from "../../utils/Types";
-import { forgetPassword } from "../../controller/AuthController";
+import { AgentName } from "../../utils/Types";
 import AuthFooter from "../AuthFooter/AuthFooter";
 
-const AuthReset = () => {
+const AgentInfo = () => {
   const navigate = useNavigate();
 
   const {
@@ -18,15 +17,9 @@ const AuthReset = () => {
     // reset
     // formState: { errors, isValid, isSubmitting },
     formState: { errors, isValid },
-  } = useForm<EmailInputs>({ mode: "all" });
+  } = useForm<AgentName>({ mode: "all" });
 
-  const [loading, setLoading] = useState<boolean>(false);
-
-  const onSubmit: SubmitHandler<EmailInputs> = (formData) => {
-    const data = { email: formData.email };
-    localStorage.setItem("email", JSON.stringify(data));
-    forgetPassword(data, setLoading, navigate);
-  };
+  const onSubmit: SubmitHandler<AgentName> = () => {};
 
   return (
     <>
@@ -58,51 +51,58 @@ const AuthReset = () => {
             >
               <div className="flex flex-col gap-1 relative">
                 <label
-                  htmlFor="email"
-                  className="text-white text-sm md:text-base md:font-medium"
+                  htmlFor="firstName"
+                  className="text-white text-xs md:text-sm md:font-medium"
                 >
-                  Email
+                  Agent First Name
                 </label>
                 <input
                   className="border border-[#B6C6E3] focus:outline-none w-full p-3 bg-[#141C26] placeholder:text-[#B6C6E3] text-white text-sm md:text-base rounded-md"
-                  {...register("email", {
-                    required: "This field is required",
-                    pattern: {
-                      value:
-                        /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                      message: "Invalid email address",
-                    },
-                  })}
-                  name="email"
-                  id="email"
-                  placeholder="Enter your email address"
-                  type="email"
+                  {...register("firstName", { required: true })}
+                  name="firstName"
+                  id="firstName"
+                  placeholder="Agent First Name"
+                  type="text"
                 />
-                {errors.email && (
+                {errors.firstName && (
                   <p className="absolute right-0 bg-[#ED756B] p-1 text-[10px] italic text-white rounded-md">
-                    {errors.email.message}
+                    This field is required
+                  </p>
+                )}
+              </div>
+
+              <div className="flex flex-col gap-1 relative">
+                <label
+                  htmlFor="lastName"
+                  className="text-white text-xs md:text-sm md:font-medium"
+                >
+                  Agent Last Name
+                </label>
+                <input
+                  className="border border-[#B6C6E3] focus:outline-none w-full p-3 bg-[#141C26] placeholder:text-[#B6C6E3] text-white text-sm md:text-base rounded-md"
+                  {...register("lastName", { required: true })}
+                  name="lastName"
+                  id="lastName"
+                  placeholder="Agent Last Name"
+                  type="text"
+                />
+                {errors.lastName && (
+                  <p className="absolute right-0 bg-[#ED756B] p-1 text-[10px] italic text-white rounded-md">
+                    This field is required
                   </p>
                 )}
               </div>
 
               <button
-                disabled={loading || !isValid}
+                disabled={!isValid}
                 className={`${
-                  loading || !isValid ? "bg-[#25754B]" : "bg-[#14B151]"
+                  !isValid ? "bg-[#25754B]" : "bg-[#14B151]"
                 }  text-sm py-2 font-medium md:text-base md:font-semibold md:py-3 text-white rounded-md mt-3`}
                 type="submit"
               >
-                {loading ? "requesting..." : "Get OTP"}
+                Continue
               </button>
             </form>
-          </div>
-
-          <div className="text-[#B6C6E3] text-center">
-            <Link to={"/"}>
-              <p className="text-xs md:text-sm text-[#14B151]">
-                Return to login
-              </p>
-            </Link>
           </div>
         </div>
       </div>
@@ -111,4 +111,4 @@ const AuthReset = () => {
   );
 };
 
-export default AuthReset;
+export default AgentInfo;
