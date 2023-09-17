@@ -58,7 +58,7 @@ const Authlogin = () => {
                 Email
               </label>
               <input
-                className="border border-[#B6C6E3] focus:outline-none w-full p-3 bg-[#141C26] placeholder:text-[#B6C6E3] text-white text-sm md:text-base rounded-md"
+                className="border border-[#B6C6E3] focus:outline-none w-full p-3 bg-[#141C26] placeholder:text-[#B6C6E3] placeholder:text-xs text-white text-sm md:text-base rounded-md"
                 {...register("email", { required: true })}
                 name="email"
                 id="email"
@@ -86,7 +86,7 @@ const Authlogin = () => {
               </div>
               <div className="relative flex flex-col items-center justify-center">
                 <input
-                  className="border border-[#B6C6E3] focus:outline-none w-full p-3 bg-[#141C26] placeholder:text-[#B6C6E3] text-white text-sm md:text-base  rounded-md"
+                  className="border border-[#B6C6E3] focus:outline-none w-full p-3 bg-[#141C26] placeholder:text-[#B6C6E3] placeholder:text-xs text-white text-sm md:text-base  rounded-md"
                   {...register("password", { required: true })}
                   name="password"
                   id="password"

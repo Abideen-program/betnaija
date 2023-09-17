@@ -64,7 +64,7 @@ const AuthReset = () => {
                   Email
                 </label>
                 <input
-                  className="border border-[#B6C6E3] focus:outline-none w-full p-3 bg-[#141C26] placeholder:text-[#B6C6E3] text-white text-sm md:text-base rounded-md"
+                  className="border border-[#B6C6E3] focus:outline-none w-full p-3 bg-[#141C26] placeholder:text-[#B6C6E3] placeholder:text-xs text-white text-sm md:text-base rounded-md"
                   {...register("email", {
                     required: "This field is required",
                     pattern: {
