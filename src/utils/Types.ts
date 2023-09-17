@@ -64,7 +64,18 @@ export type ChangePasswordData = {
   password_confirmation: string;
 };
 
-export type AgentName = {
-  firstName: string;
-  lastName: string;
+export type AgentDetails = {
+  firstName?: string;
+  lastName?: string;
+  agent_code?: string;
+  office_address?: string;
+  region?: string;
 };
+
+// export type AgentDetails = {
+//   agent_code: string;
+//   office_address: string;
+//   region: string;
+//   firstName?: string;
+//   lastName?: string;
+// };
