@@ -6,6 +6,7 @@ import { AgentDetails } from "../../utils/Types";
 import AuthFooter from "../AuthFooter/AuthFooter";
 import { stepper } from "../../utils/stepper";
 import { states } from "../../utils/states";
+import SuccessPage from "./SuccessPage";
 
 const AgentInfo = () => {
   const navigate = useNavigate();
@@ -45,7 +46,17 @@ const AgentInfo = () => {
     setSlide(2);
   };
 
-  const onFinish: SubmitHandler<AgentDetails> = (formData) => {};
+  const onFinish: SubmitHandler<AgentDetails> = (formData) => {
+    const newFormData = {
+      name: agentDetails.name,
+      office_address: formData.office_address,
+      agent_code: formData.agent_code,
+      region: formData.region,
+    };
+
+    console.log(newFormData);
+    setSlide(6);
+  };
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("newuser")!);
@@ -265,6 +276,8 @@ const AgentInfo = () => {
           </div>
         </div>
       )}
+
+      {slide === 6 && agentDetails.user_type === "agent" && <SuccessPage />}
       <AuthFooter />
     </>
   );

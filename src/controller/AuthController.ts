@@ -46,9 +46,9 @@ export const login = async (
             (user.data.user.usermeta == null ||
               user.data.user.usermeta.name == undefined)
           ) {
-            navigate('/user-info')
+            navigate("/user-info");
           } else {
-            navigate('/')
+            navigate("/");
           }
         }
       } else {
@@ -108,7 +108,6 @@ export const validateOtp = async (
     .post("auth/otp/validate", data)
     .then((response) => {
       if (response.data.status === true) {
-        console.log(response);
         navigate("/user-info");
       } else {
         toast.error(response.data.message, { theme: "colored" });
