@@ -55,8 +55,6 @@ const AgentInfo = () => {
     });
   }, []);
 
-  console.log(agentDetails);
-
   return (
     <>
       {slide === 1 && agentDetails.user_type === "agent" && (

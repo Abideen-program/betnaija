@@ -11,17 +11,11 @@ export const stepper = (
         user.user_type === "agent"
           ? [
               {
-                onclick: () => {
+                onClick: () => {
                   setSlide(1);
-                  console.log('1')
                 },
               },
-              {
-                onclick: () => {
-                  setSlide(2);
-                  console.log('2')
-                },
-              },
+              {},
             ]
           : user.user_type === "ngo"
           ? []
