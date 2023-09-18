@@ -31,15 +31,13 @@ const ChangePassword = () => {
 
   useEffect(() => {
     let forgetPassWordEmail = JSON.parse(localStorage.getItem("email")!);
-    setEmail(forgetPassWordEmail.email);
+    setEmail(forgetPassWordEmail?.email);
   }, []);
 
-  console.log(email);
-
   return (
-    <div className="h-[100vh] w-full bg-[#0D141D] flex flex-col items-center justify-center">
-      <div className="min-w-[300px] md:w-[500px] py-5 px-7 flex flex-col md:gap-3 bg-[#363944] rounded-2xl border border-[#B6C6E3]">
-        <div className="w-[150px] md:w-[210px] mx-auto text-center">
+    <div className="min-h-screen p-5 md:p-0 w-full bg-[#0D141D] flex flex-col items-center justify-center">
+      <div className="w-[300px] md:w-[500px] py-5 px-7 flex flex-col md:gap-3 bg-[#363944] rounded-2xl border border-[#B6C6E3]">
+        <div className=" mx-auto text-center">
           <Link to={"/"}>
             <img
               src={AuthLogo}
@@ -47,11 +45,14 @@ const ChangePassword = () => {
               className="object-contain w-[150px] mx-auto"
             />
           </Link>
-          <div className="flex flex-col mt-2 md:mt-7">
+          <div className="flex flex-col gap-2 mt-4">
             <h2 className="text-white font-bold md:text-2xl tracking-wide">
-              Welcome Back!
+              Let’s get you back in
             </h2>
-            <p className="text-[#6B7993] text-sm md:text-base">Login</p>
+            <p className="text-[#6B7993] text-xs md:text-sm">
+              Put in a new password. Make sure it’s easy for you to remember,
+              and difficult for others to guess.
+            </p>
           </div>
         </div>
 

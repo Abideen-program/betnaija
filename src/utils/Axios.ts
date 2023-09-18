@@ -14,4 +14,29 @@ let instance = axios.create({
   },
 });
 
+// instance.defaults.withCredentials = true;
+instance.interceptors.response.use(
+  (response) => {
+    if (response.status === 401) {
+      localStorage.clear();
+      window.location.href = "/auth-login";
+    }
+
+    return response;
+  },
+  (error) => {
+    if (error.response.status === 401) {
+      localStorage.clear();
+      window.location.href = "/auth-login";
+    }
+
+    return Promise.reject(error);
+  }
+);
+
+instance.interceptors.request.use((config) => {
+  config.headers.Authorization = `Bearer ${localStorage.getItem("_newToken")}`;
+  return config;
+});
+
 export default instance;

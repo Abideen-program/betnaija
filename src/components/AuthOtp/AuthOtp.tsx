@@ -55,6 +55,14 @@ const AuthOtp = () => {
     setTimeLeft(179);
   };
 
+  useEffect(() => {
+    const savedUser = JSON.parse(localStorage.getItem("newuser")!);
+
+    if (savedUser.usermeta) {
+      navigate("/");
+    }
+  }, []);
+
   return (
     <>
       <div className="h-[calc(100vh_-_70px)] w-full bg-[#0D141D] flex flex-col items-center justify-center">

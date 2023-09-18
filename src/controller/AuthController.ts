@@ -9,10 +9,12 @@ import {
   ResendOtpData,
   EmailInputs,
   ChangePasswordData,
+  AgentDetails,
 } from "../utils/Types";
 
 type SetLoading = React.Dispatch<React.SetStateAction<boolean>>;
 type Navigate = NavigateFunction;
+type SetSlide = React.Dispatch<React.SetStateAction<number>>;
 
 export const login = async (
   data: LoginInputs,
@@ -48,7 +50,7 @@ export const login = async (
           ) {
             navigate("/user-info");
           } else {
-            navigate("/");
+            navigate("/dashboard");
           }
         }
       } else {
@@ -168,7 +170,6 @@ export const resetPassword = async (
     .post("auth/password/resetPassword", data)
     .then((response) => {
       if (response.data.status === true) {
-        console.log(response);
         toast.success(response.data.message, { theme: "colored" });
         naviagte("/");
       } else {
@@ -179,4 +180,34 @@ export const resetPassword = async (
       toast.error(err.response.data, { theme: "colored" });
     });
   setLoading(false);
+};
+
+export const createUserProfile = async (
+  data: AgentDetails,
+  setloading: SetLoading,
+  setSlide: SetSlide
+) => {
+  setloading(true);
+  await axios
+    .post("usermeta", data)
+    .then((response) => {
+      if (response.data.status === true) {
+        let user = response.data;
+        const savedUser = JSON.parse(localStorage.getItem("newuser")!);
+        localStorage.setItem(
+          "newuser",
+          JSON.stringify({ ...savedUser, usermeta: user["data"] })
+        );
+        console.log(response);
+        toast.success(response.data.message, { theme: "colored" });
+        setSlide(6);
+      } else {
+        toast.error(response.data.message, { theme: "colored" });
+      }
+    })
+    .catch((err) => {
+      toast.error(err.response.data, { theme: "colored" });
+    });
+
+  setloading(false);
 };

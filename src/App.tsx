@@ -5,6 +5,7 @@ import AuthReset from "./components/AuthReset/AuthReset";
 import AuthOtp from "./components/AuthOtp/AuthOtp";
 import UserInfo from "./components/UserInfo/UserInfo";
 import ChangePassword from "./components/AuthReset/ChangePassword";
+import Dashboard from "./components/Dashboard/Dashboard";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -36,6 +37,11 @@ const App = () => {
     {
       path: "auth-change-password",
       element: <ChangePassword />,
+    },
+
+    {
+      path: "dashboard",
+      element: <Dashboard />,
     },
   ]);
 

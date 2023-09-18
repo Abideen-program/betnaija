@@ -7,6 +7,7 @@ import AuthFooter from "../AuthFooter/AuthFooter";
 import { stepper } from "../../utils/stepper";
 import { states } from "../../utils/states";
 import SuccessPage from "./SuccessPage";
+import { createUserProfile } from "../../controller/AuthController";
 
 const AgentInfo = () => {
   const navigate = useNavigate();
@@ -36,6 +37,7 @@ const AgentInfo = () => {
     document: "",
   });
   const [slide, setSlide] = useState<number>(1);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const onSubmit: SubmitHandler<AgentDetails> = (formData) => {
     setAgentDetails({
@@ -54,8 +56,7 @@ const AgentInfo = () => {
       region: formData.region,
     };
 
-    console.log(newFormData);
-    setSlide(6);
+    createUserProfile(newFormData, setLoading, setSlide);
   };
 
   useEffect(() => {
@@ -269,7 +270,7 @@ const AgentInfo = () => {
                   }  text-sm py-2 font-medium md:text-base md:font-semibold md:py-3 text-white rounded-md mt-3`}
                   type="submit"
                 >
-                  Continue
+                  {loading ? "Creating..." : "Continue"}
                 </button>
               </form>
             </div>

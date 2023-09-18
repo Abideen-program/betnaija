@@ -33,7 +33,7 @@ const SuccessPage = () => {
           type="submit"
           onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
             e.preventDefault();
-            navigate('/')
+            navigate('/dashboard')
           }}
         >
           Proceed to Dashboard
