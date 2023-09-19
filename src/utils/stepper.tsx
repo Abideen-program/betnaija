@@ -18,7 +18,19 @@ export const stepper = (
               {},
             ]
           : user.user_type === "ngo"
-          ? []
+          ? [
+              {
+                onClick: () => {
+                  setSlide(1);
+                },
+              },
+              {
+                onClick: () => {
+                  setSlide(2);
+                },
+              },
+              {}
+            ]
           : []
       }
       activeStep={step}

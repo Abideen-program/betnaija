@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AuthLogo from "../../assets/logo.png";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
@@ -25,6 +25,14 @@ const Authlogin = () => {
   const onSubmit: SubmitHandler<LoginInputs> = (formData) => {
     login(formData, setLoading, navigate);
   };
+
+  // useEffect(() => {
+  //   const savedUser = JSON.parse(localStorage.getItem("newuser")!);
+
+  //   if (savedUser?.usermeta) {
+  //     navigate("/dashboard");
+  //   }
+  // }, []);
 
   return (
     <div className="h-[100vh] w-full bg-[#0D141D] flex flex-col items-center justify-center">

@@ -65,12 +65,25 @@ export type ChangePasswordData = {
 };
 
 export type AgentDetails = {
+  // name: string;
   firstName?: string;
   lastName?: string;
   agent_code?: string;
   office_address?: string;
   region?: string;
+  ngo_name?: string;
+  personalName?: string;
 };
+
+export type NgoDetails = {
+  name: string;
+  agent_code?: string;
+  office_address?: string;
+  region?: string;
+  ngo_name: string;
+  personalName?: string;
+};
+
 
 // export type AgentDetails = {
 //   agent_code: string;

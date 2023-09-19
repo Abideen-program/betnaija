@@ -2,19 +2,14 @@ import { useState, useEffect } from "react";
 import AuthLogo from "../../assets/logo.png";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { AgentDetails } from "../../utils/Types";
+import { NgoDetails } from "../../utils/Types";
 import AuthFooter from "../AuthFooter/AuthFooter";
 import { stepper } from "../../utils/stepper";
 import { states } from "../../utils/states";
 import SuccessPage from "./SuccessPage";
 import { createUserProfile } from "../../controller/AuthController";
 
-type AgentInfoProp = {
-  slide: number;
-  setSlide: React.Dispatch<React.SetStateAction<number>>;
-};
-
-const AgentInfo = ({ slide, setSlide }: AgentInfoProp) => {
+const NGOInfo = () => {
   const {
     register,
     handleSubmit,
@@ -24,9 +19,9 @@ const AgentInfo = ({ slide, setSlide }: AgentInfoProp) => {
     // reset
     // formState: { errors, isValid, isSubmitting },
     formState: { errors, isValid },
-  } = useForm<AgentDetails>({ mode: "all" });
+  } = useForm<NgoDetails>({ mode: "all" });
 
-  const [agentDetails, setAgentDetails] = useState({
+  const [ngoDetails, setNgoDetails] = useState({
     user_type: "",
     ngo_name: "",
     office_address: "",
@@ -39,21 +34,24 @@ const AgentInfo = ({ slide, setSlide }: AgentInfoProp) => {
     agent_code: "",
     document: "",
   });
-
+  const [slide, setSlide] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const onSubmit: SubmitHandler<AgentDetails> = (formData) => {
-    setAgentDetails({
-      ...agentDetails,
-      name: formData.firstName + " " + formData.lastName,
+  const onSubmit: SubmitHandler<NgoDetails> = (formData) => {
+    setNgoDetails({
+      ...ngoDetails,
+      name: formData.name,
+      ngo_name: formData.ngo_name,
     });
 
     setSlide(2);
   };
 
-  const onFinish: SubmitHandler<AgentDetails> = (formData) => {
+  console.log(ngoDetails);
+
+  const onFinish: SubmitHandler<NgoDetails> = (formData) => {
     const newFormData = {
-      name: agentDetails.name,
+      name: ngoDetails.name,
       office_address: formData.office_address,
       agent_code: formData.agent_code,
       region: formData.region,
@@ -64,15 +62,15 @@ const AgentInfo = ({ slide, setSlide }: AgentInfoProp) => {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("newuser")!);
-    setAgentDetails({
-      ...agentDetails,
+    setNgoDetails({
+      ...ngoDetails,
       ...user,
     });
   }, []);
 
   return (
     <>
-      {slide === 1 && agentDetails.user_type === "agent" && (
+      {slide === 1 && ngoDetails.user_type === "ngo" && (
         <div className="min-h-screen md:min-h-[calc(100vh_-_60px)] p-5 md:p-0 w-full bg-[#0D141D] flex flex-col items-center justify-center">
           <div className="w-[300px] md:w-[500px] p-7 flex flex-col md:gap-6 bg-[#363944] rounded-2xl border border-[#B6C6E3]">
             <div className="mx-auto text-center">
@@ -101,20 +99,20 @@ const AgentInfo = ({ slide, setSlide }: AgentInfoProp) => {
               >
                 <div className="flex flex-col gap-1 relative">
                   <label
-                    htmlFor="firstName"
+                    htmlFor="ngo_name"
                     className="text-white text-xs md:text-sm md:font-medium"
                   >
-                    Agent First Name
+                    Name of NGO
                   </label>
                   <input
                     className="border border-[#B6C6E3] focus:outline-none w-full p-3 bg-[#141C26] placeholder:text-[#B6C6E3] placeholder:text-xs text-white text-sm md:text-base rounded-md"
-                    {...register("firstName", { required: true })}
-                    name="firstName"
-                    id="firstName"
-                    placeholder="Agent First Name"
+                    {...register("ngo_name", { required: true })}
+                    name="ngo_name"
+                    id="ngo_name"
+                    placeholder="Name of NGO"
                     type="text"
                   />
-                  {errors.firstName && (
+                  {errors.ngo_name && (
                     <p className="absolute right-0 bg-[#ED756B] p-1 text-[10px] italic text-white rounded-md">
                       This field is required
                     </p>
@@ -123,20 +121,20 @@ const AgentInfo = ({ slide, setSlide }: AgentInfoProp) => {
 
                 <div className="flex flex-col gap-1 relative">
                   <label
-                    htmlFor="lastName"
+                    htmlFor="name"
                     className="text-white text-xs md:text-sm md:font-medium"
                   >
-                    Agent Last Name
+                    Personal Name
                   </label>
                   <input
                     className="border border-[#B6C6E3] focus:outline-none w-full p-3 bg-[#141C26] placeholder:text-[#B6C6E3] placeholder:text-xs text-white text-sm md:text-base rounded-md"
-                    {...register("lastName", { required: true })}
-                    name="lastName"
-                    id="lastName"
-                    placeholder="Agent Last Name"
+                    {...register("name", { required: true })}
+                    name="name"
+                    id="name"
+                    placeholder="Personal Name"
                     type="text"
                   />
-                  {errors.lastName && (
+                  {errors.name && (
                     <p className="absolute right-0 bg-[#ED756B] p-1 text-[10px] italic text-white rounded-md">
                       This field is required
                     </p>
@@ -158,7 +156,7 @@ const AgentInfo = ({ slide, setSlide }: AgentInfoProp) => {
         </div>
       )}
 
-      {slide === 2 && agentDetails.user_type === "agent" && (
+      {slide === 2 && ngoDetails.user_type === "ngo" && (
         <div className="min-h-full p-5 md:p-0 md:min-h-screen w-full bg-[#0D141D] flex flex-col items-center justify-center">
           <div className="w-[300px] md:w-[500px] py-5 px-7 flex flex-col md:gap-6 bg-[#363944] rounded-2xl border border-[#B6C6E3]">
             <div className="mx-auto text-center">
@@ -175,7 +173,7 @@ const AgentInfo = ({ slide, setSlide }: AgentInfoProp) => {
                   Well done! Just finish up
                 </h2>
                 <p className="text-[#6B7993] text-xs md:text-sm">
-                  You are a agent, so let's have your agent code
+                  You are a agent, so let's have your CAC Number
                 </p>
               </div>
             </div>
@@ -190,14 +188,14 @@ const AgentInfo = ({ slide, setSlide }: AgentInfoProp) => {
                     htmlFor="agent_code"
                     className="text-white text-xs md:text-sm md:font-medium"
                   >
-                    Agent Personal Code
+                    CAC Registration No.
                   </label>
                   <input
                     className="border border-[#B6C6E3] focus:outline-none w-full p-3 bg-[#141C26] placeholder:text-[#B6C6E3] placeholder:text-xs text-white text-sm md:text-base rounded-md"
                     {...register("agent_code", { required: true })}
                     name="agent_code"
                     id="agent_code"
-                    placeholder="Agent Personal Code"
+                    placeholder="CAC Registration No."
                     type="text"
                   />
                   {errors.agent_code && (
@@ -281,10 +279,10 @@ const AgentInfo = ({ slide, setSlide }: AgentInfoProp) => {
         </div>
       )}
 
-      {slide === 6 && agentDetails.user_type === "agent" && <SuccessPage />}
-      {agentDetails.user_type === "agent" && <AuthFooter />}
+      {slide === 6 && ngoDetails.user_type === "agent" && <SuccessPage />}
+      <AuthFooter />
     </>
   );
 };
 
-export default AgentInfo;
+export default NGOInfo;

@@ -3,3 +3,9 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
+// const logoutHandler = () => {
+//   localStorage.clear();
+//   navigate("/");
+//   console.log('llog')
+// };
