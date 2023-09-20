@@ -57,6 +57,7 @@ const AgentInfo = ({ slide, setSlide }: AgentInfoProp) => {
       office_address: formData.office_address,
       agent_code: formData.agent_code,
       region: formData.region,
+      usertype: agentDetails.user_type,
     };
 
     createUserProfile(newFormData, setLoading, setSlide);

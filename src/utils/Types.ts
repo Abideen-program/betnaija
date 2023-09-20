@@ -73,6 +73,7 @@ export type AgentDetails = {
   region?: string;
   ngo_name?: string;
   personalName?: string;
+  usertype?: string
 };
 
 export type NgoDetails = {

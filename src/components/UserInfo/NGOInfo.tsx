@@ -8,8 +8,14 @@ import { stepper } from "../../utils/stepper";
 import SuccessPage from "./SuccessPage";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { createUserProfile } from "../../controller/AuthController";
 
-const NGOInfo = () => {
+type NGOInfoProp = {
+  slide: number;
+  setSlide: React.Dispatch<React.SetStateAction<number>>;
+};
+
+const NGOInfo = ({ slide, setSlide }: NGOInfoProp) => {
   const docRef = useRef<HTMLInputElement>();
   const {
     register,
@@ -37,7 +43,7 @@ const NGOInfo = () => {
     agent_code: "",
     document: "",
   });
-  const [slide, setSlide] = useState<number>(1);
+
   const [loading, setLoading] = useState<boolean>(false);
   const [startDate, setStartDate] = useState(new Date());
 
@@ -58,6 +64,19 @@ const NGOInfo = () => {
       date_of_registration: formData.date_of_registration,
       document: formData.document,
     });
+
+    setSlide(3);
+  };
+
+  const onFinish: SubmitHandler<NgoDetails> = (formData) => {
+    const newFormData = {
+      name: ngoDetails.name,
+      office_address: formData.office_address,
+    };
+
+    console.log(newFormData);
+
+    createUserProfile(newFormData, setLoading, setSlide);
   };
 
   console.log(ngoDetails);
@@ -187,7 +206,7 @@ const NGOInfo = () => {
               >
                 <div className="flex flex-col gap-1 relative">
                   <label
-                    htmlFor="agent_code"
+                    htmlFor="cac"
                     className="text-white text-xs md:text-sm md:font-medium"
                   >
                     CAC Registration No.
@@ -209,7 +228,7 @@ const NGOInfo = () => {
 
                 <div className="flex flex-col gap-1 relative">
                   <label
-                    htmlFor="agent_code"
+                    htmlFor="date_of_registration"
                     className="text-white text-xs md:text-sm md:font-medium"
                   >
                     Date of Registration
@@ -240,38 +259,26 @@ const NGOInfo = () => {
                   >
                     CAC Document
                   </label>
-                  <div className="border border-[#B6C6E3] rounded-md relative">
-                    <input
-                      className="border border-[#B6C6E3] focus:outline-none w-full p-3 bg-[#141C26] placeholder:text-[#B6C6E3] placeholder:text-xs text-white text-sm md:text-base rounded-md"
-                      //   {...register("document", { required: true })}
-                      {...rest}
-                      name="document"
-                      id="document"
-                      placeholder="Click to choose a file"
-                      type="file"
-                      accept=".pdf,image/*"
-                      ref={(e: HTMLInputElement) => {
-                        ref(e);
-                        docRef.current = e;
-                      }}
-                    />
-                    {errors.document && (
-                      <p className="absolute right-0 bg-[#ED756B] p-1 text-[10px] italic text-white rounded-md">
-                        This field is required
-                      </p>
-                    )}
-                    <div className="bg-[#14B151] p-3 absolute top-0 bottom-0 right-0 rounded-r-md cursor-pointer">
-                      <a
-                        className="btn btn-success btn-dim text-[#B6C6E3] text-sm"
-                        onClick={() => {
-                          // e.preventDefault();
-                          docRef.current!.click();
-                        }}
-                      >
-                        Upload
-                      </a>
-                    </div>
-                  </div>
+
+                  <input
+                    className="relative border border-[#B6C6E3] focus:outline-none w-full p-3 bg-[#141C26] placeholder:text-[#B6C6E3] placeholder:text-xs text-white text-sm md:text-base rounded-md file:bg-[#14B151] file:p-3 file:border-none file:text-[#B6C6E3] file:absolute file:right-0 file:top-0 file:mr-0 file:cursor-pointer"
+                    //   {...register("document", { required: true })}
+                    {...rest}
+                    name="document"
+                    id="document"
+                    placeholder="Click to choose a file"
+                    type="file"
+                    accept=".pdf,image/*"
+                    ref={(e: HTMLInputElement) => {
+                      ref(e);
+                      docRef.current = e;
+                    }}
+                  />
+                  {errors.document && (
+                    <p className="absolute right-0 bg-[#ED756B] p-1 text-[10px] italic text-white rounded-md">
+                      This field is required
+                    </p>
+                  )}
                 </div>
 
                 <button
@@ -282,6 +289,92 @@ const NGOInfo = () => {
                   type="submit"
                 >
                   {loading ? "Creating..." : "Continue"}
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {slide === 3 && ngoDetails.user_type === "ngo" && (
+        <div className="min-h-full p-5 md:p-0 md:min-h-screen w-full bg-[#0D141D] flex flex-col items-center justify-center">
+          <div className="w-[300px] md:w-[500px] py-5 px-7 flex flex-col md:gap-6 bg-[#363944] rounded-2xl border border-[#B6C6E3]">
+            <div className="mx-auto text-center">
+              <Link to={"/"}>
+                <img
+                  src={AuthLogo}
+                  alt="Betnaija Logo"
+                  className="object-contain w-[150px] mx-auto"
+                />
+              </Link>
+              <div className="flex flex-col gap-2">
+                {stepper(1, setSlide)}
+                <h2 className="text-white font-bold md:text-xl tracking-wide">
+                  Well done! Just finish up
+                </h2>
+                <p className="text-[#6B7993] text-xs md:text-sm">
+                  You are a NGO, so let's have your office address
+                </p>
+              </div>
+            </div>
+
+            <div className="my-3 ">
+              <form
+                className="flex flex-col gap-6"
+                onSubmit={handleSubmit(onFinish)}
+              >
+                <div className="flex flex-col gap-1 relative">
+                  <label
+                    htmlFor="agent_code"
+                    className="text-white text-xs md:text-sm md:font-medium"
+                  >
+                    Office Address
+                  </label>
+                  <input
+                    className="border border-[#B6C6E3] focus:outline-none w-full p-3 bg-[#141C26] placeholder:text-[#B6C6E3] placeholder:text-xs text-white text-sm md:text-base rounded-md"
+                    {...register("cac", { required: true })}
+                    name="cac"
+                    id="cac"
+                    placeholder="Office Address"
+                    type="text"
+                  />
+                  {errors.cac && (
+                    <p className="absolute right-0 bg-[#ED756B] p-1 text-[10px] italic text-white rounded-md">
+                      This field is required
+                    </p>
+                  )}
+                </div>
+
+                <div className="flex flex-col gap-1 relative">
+                  <label
+                    htmlFor="agent_code"
+                    className="text-white text-xs md:text-sm md:font-medium"
+                  >
+                    Website URL
+                  </label>
+                  <input
+                    className="border border-[#B6C6E3] focus:outline-none w-full p-3 bg-[#141C26] placeholder:text-[#B6C6E3] placeholder:text-xs text-white text-sm md:text-base rounded-md"
+                    {...register("cac", { required: true })}
+                    name="cac"
+                    id="cac"
+                    placeholder="Office Address"
+                    type="text"
+                  />
+                  {errors.cac && (
+                    <p className="absolute right-0 bg-[#ED756B] p-1 text-[10px] italic text-white rounded-md">
+                      This field is required
+                    </p>
+                  )}
+                </div>
+
+                <button
+                  disabled={!isValid}
+                  className={`${
+                    !isValid ? "bg-[#25754B]" : "bg-[#14B151]"
+                  }  text-sm py-2 font-medium md:text-base md:font-semibold md:py-3 text-white rounded-md mt-3`}
+                  type="submit"
+                >
+                  {loading ? "loading..." : "Continue"}
                 </button>
               </form>
             </div>

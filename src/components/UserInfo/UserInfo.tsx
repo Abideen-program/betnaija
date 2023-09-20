@@ -18,7 +18,7 @@ const UserInfo = () => {
   return (
     <>
       <AgentInfo slide={slide} setSlide={setSlide}/>
-      <NGOInfo />
+      <NGOInfo slide={slide} setSlide={setSlide}/>
     </>
   );
 };
