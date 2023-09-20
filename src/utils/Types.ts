@@ -82,8 +82,10 @@ export type NgoDetails = {
   region?: string;
   ngo_name: string;
   personalName?: string;
+  cac: string;
+  document: string;
+  date_of_registration: string
 };
-
 
 // export type AgentDetails = {
 //   agent_code: string;

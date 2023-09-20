@@ -1,25 +1,28 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, MouseEventHandler } from "react";
 import AuthLogo from "../../assets/logo.png";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { NgoDetails } from "../../utils/Types";
 import AuthFooter from "../AuthFooter/AuthFooter";
 import { stepper } from "../../utils/stepper";
-import { states } from "../../utils/states";
 import SuccessPage from "./SuccessPage";
-import { createUserProfile } from "../../controller/AuthController";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const NGOInfo = () => {
+  const docRef = useRef<HTMLInputElement>();
   const {
     register,
     handleSubmit,
     // watch,
     // getValues,
-    // setValue,
+    setValue,
     // reset
     // formState: { errors, isValid, isSubmitting },
     formState: { errors, isValid },
   } = useForm<NgoDetails>({ mode: "all" });
+
+  const { ref, ...rest } = register("document", {});
 
   const [ngoDetails, setNgoDetails] = useState({
     user_type: "",
@@ -36,6 +39,7 @@ const NGOInfo = () => {
   });
   const [slide, setSlide] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(false);
+  const [startDate, setStartDate] = useState(new Date());
 
   const onSubmit: SubmitHandler<NgoDetails> = (formData) => {
     setNgoDetails({
@@ -47,18 +51,16 @@ const NGOInfo = () => {
     setSlide(2);
   };
 
-  console.log(ngoDetails);
-
-  const onFinish: SubmitHandler<NgoDetails> = (formData) => {
-    const newFormData = {
-      name: ngoDetails.name,
-      office_address: formData.office_address,
-      agent_code: formData.agent_code,
-      region: formData.region,
-    };
-
-    createUserProfile(newFormData, setLoading, setSlide);
+  const documentHandler: SubmitHandler<NgoDetails> = (formData) => {
+    setNgoDetails({
+      ...ngoDetails,
+      cac: formData.cac,
+      date_of_registration: formData.date_of_registration,
+      document: formData.document,
+    });
   };
+
+  console.log(ngoDetails);
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("newuser")!);
@@ -181,7 +183,7 @@ const NGOInfo = () => {
             <div className="my-3 ">
               <form
                 className="flex flex-col gap-6"
-                onSubmit={handleSubmit(onFinish)}
+                onSubmit={handleSubmit(documentHandler)}
               >
                 <div className="flex flex-col gap-1 relative">
                   <label
@@ -192,13 +194,13 @@ const NGOInfo = () => {
                   </label>
                   <input
                     className="border border-[#B6C6E3] focus:outline-none w-full p-3 bg-[#141C26] placeholder:text-[#B6C6E3] placeholder:text-xs text-white text-sm md:text-base rounded-md"
-                    {...register("agent_code", { required: true })}
-                    name="agent_code"
-                    id="agent_code"
+                    {...register("cac", { required: true })}
+                    name="cac"
+                    id="cac"
                     placeholder="CAC Registration No."
                     type="text"
                   />
-                  {errors.agent_code && (
+                  {errors.cac && (
                     <p className="absolute right-0 bg-[#ED756B] p-1 text-[10px] italic text-white rounded-md">
                       This field is required
                     </p>
@@ -207,61 +209,69 @@ const NGOInfo = () => {
 
                 <div className="flex flex-col gap-1 relative">
                   <label
-                    htmlFor="office_address"
+                    htmlFor="agent_code"
                     className="text-white text-xs md:text-sm md:font-medium"
                   >
-                    State
+                    Date of Registration
                   </label>
 
-                  <select
-                    {...register("office_address", { required: true })}
-                    name="office_address"
-                    id="office_address"
-                    className="border border-[#B6C6E3] focus:outline-none w-full p-3 bg-[#141C26] placeholder:text-[#B6C6E3] placeholder:text-xs text-white text-sm md:text-base rounded-md"
-                  >
-                    <option value="" className="text-sm md:text-base">
-                      Select State
-                    </option>
-                    {states.map((state) => {
-                      return (
-                        <option
-                          className="text-sm md:text-base"
-                          value={state}
-                          key={state}
-                        >
-                          {state}
-                        </option>
-                      );
-                    })}
-                  </select>
-
-                  {errors.office_address && (
-                    <p className="absolute right-0 bg-[#ED756B] p-1 text-[10px] italic text-white rounded-md">
-                      This field is required
-                    </p>
-                  )}
-                </div>
-
-                <div className="flex flex-col gap-1 relative">
-                  <label
-                    htmlFor="region"
-                    className="text-white text-xs md:text-sm md:font-medium"
-                  >
-                    Location
-                  </label>
-                  <input
-                    className="border border-[#B6C6E3] focus:outline-none w-full p-3 bg-[#141C26] placeholder:text-[#B6C6E3] placeholder:text-xs text-white text-sm md:text-base rounded-md"
-                    {...register("region", { required: true })}
-                    name="region"
-                    id="region"
-                    placeholder="Location"
-                    type="text"
+                  <DatePicker
+                    showIcon={true}
+                    selected={startDate}
+                    // showTimeSelect
+                    onChange={(date: any) => {
+                      setStartDate(date);
+                      setValue("date_of_registration", date);
+                    }}
+                    className="border border-[#B6C6E3] focus:outline-none w-full bg-[#141C26] text-white p-3 rounded-md"
                   />
-                  {errors.region && (
+
+                  {errors.date_of_registration && (
                     <p className="absolute right-0 bg-[#ED756B] p-1 text-[10px] italic text-white rounded-md">
                       This field is required
                     </p>
                   )}
+                </div>
+
+                <div className="flex flex-col gap-1">
+                  <label
+                    htmlFor=""
+                    className="text-white text-xs md:text-sm md:font-medium"
+                  >
+                    CAC Document
+                  </label>
+                  <div className="border border-[#B6C6E3] rounded-md relative">
+                    <input
+                      className="border border-[#B6C6E3] focus:outline-none w-full p-3 bg-[#141C26] placeholder:text-[#B6C6E3] placeholder:text-xs text-white text-sm md:text-base rounded-md"
+                      //   {...register("document", { required: true })}
+                      {...rest}
+                      name="document"
+                      id="document"
+                      placeholder="Click to choose a file"
+                      type="file"
+                      accept=".pdf,image/*"
+                      ref={(e: HTMLInputElement) => {
+                        ref(e);
+                        docRef.current = e;
+                      }}
+                    />
+                    {errors.document && (
+                      <p className="absolute right-0 bg-[#ED756B] p-1 text-[10px] italic text-white rounded-md">
+                        This field is required
+                      </p>
+                    )}
+                    <div className="bg-[#14B151] p-3 absolute top-0 bottom-0 right-0 rounded-r-md cursor-pointer">
+                      <a
+                        className="btn btn-success btn-dim text-[#B6C6E3] text-sm"
+                        onClick={() => {
+                          // e.preventDefault();
+                          docRef.current!.click();
+                        }}
+                      >
+                        Upload
+                      </a>
+                    </div>
+                  </div>
                 </div>
 
                 <button
