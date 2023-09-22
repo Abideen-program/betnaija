@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, MouseEventHandler } from "react";
+import { useState, useEffect, useRef } from "react";
 import AuthLogo from "../../assets/logo.png";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Link } from "react-router-dom";
@@ -9,6 +9,7 @@ import SuccessPage from "./SuccessPage";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { createUserProfile } from "../../controller/AuthController";
+import moment from "moment";
 
 type NGOInfoProp = {
   slide: number;
@@ -71,15 +72,20 @@ const NGOInfo = ({ slide, setSlide }: NGOInfoProp) => {
   const onFinish: SubmitHandler<NgoDetails> = (formData) => {
     const newFormData = {
       name: ngoDetails.name,
+      ngo_name: ngoDetails.ngo_name,
       office_address: formData.office_address,
+      phone: ngoDetails.phone,
+      cac: ngoDetails.cac,
+      date_of_registration: moment(ngoDetails.date_of_registration).format("L"),
+      website_url: formData.website_url,
+      document: ngoDetails.document[0],
+      usertype: ngoDetails.user_type,
     };
 
     console.log(newFormData);
 
     createUserProfile(newFormData, setLoading, setSlide);
   };
-
-  console.log(ngoDetails);
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("newuser")!);
@@ -264,6 +270,7 @@ const NGOInfo = ({ slide, setSlide }: NGOInfoProp) => {
                     className="relative border border-[#B6C6E3] focus:outline-none w-full p-3 bg-[#141C26] placeholder:text-[#B6C6E3] placeholder:text-xs text-white text-sm md:text-base rounded-md file:bg-[#14B151] file:p-3 file:border-none file:text-[#B6C6E3] file:absolute file:right-0 file:top-0 file:mr-0 file:cursor-pointer"
                     //   {...register("document", { required: true })}
                     {...rest}
+                    required
                     name="document"
                     id="document"
                     placeholder="Click to choose a file"
@@ -308,7 +315,7 @@ const NGOInfo = ({ slide, setSlide }: NGOInfoProp) => {
                 />
               </Link>
               <div className="flex flex-col gap-2">
-                {stepper(1, setSlide)}
+                {stepper(2, setSlide)}
                 <h2 className="text-white font-bold md:text-xl tracking-wide">
                   Well done! Just finish up
                 </h2>
@@ -325,20 +332,20 @@ const NGOInfo = ({ slide, setSlide }: NGOInfoProp) => {
               >
                 <div className="flex flex-col gap-1 relative">
                   <label
-                    htmlFor="agent_code"
+                    htmlFor="office_address"
                     className="text-white text-xs md:text-sm md:font-medium"
                   >
                     Office Address
                   </label>
                   <input
                     className="border border-[#B6C6E3] focus:outline-none w-full p-3 bg-[#141C26] placeholder:text-[#B6C6E3] placeholder:text-xs text-white text-sm md:text-base rounded-md"
-                    {...register("cac", { required: true })}
-                    name="cac"
-                    id="cac"
+                    {...register("office_address", { required: true })}
+                    name="office_address"
+                    id="office_address"
                     placeholder="Office Address"
                     type="text"
                   />
-                  {errors.cac && (
+                  {errors.office_address && (
                     <p className="absolute right-0 bg-[#ED756B] p-1 text-[10px] italic text-white rounded-md">
                       This field is required
                     </p>
@@ -347,20 +354,20 @@ const NGOInfo = ({ slide, setSlide }: NGOInfoProp) => {
 
                 <div className="flex flex-col gap-1 relative">
                   <label
-                    htmlFor="agent_code"
+                    htmlFor="website_url"
                     className="text-white text-xs md:text-sm md:font-medium"
                   >
                     Website URL
                   </label>
                   <input
                     className="border border-[#B6C6E3] focus:outline-none w-full p-3 bg-[#141C26] placeholder:text-[#B6C6E3] placeholder:text-xs text-white text-sm md:text-base rounded-md"
-                    {...register("cac", { required: true })}
-                    name="cac"
-                    id="cac"
-                    placeholder="Office Address"
+                    {...register("website_url", { required: false })}
+                    name="website_url"
+                    id="website_url"
+                    placeholder="Website URL"
                     type="text"
                   />
-                  {errors.cac && (
+                  {errors.website_url && (
                     <p className="absolute right-0 bg-[#ED756B] p-1 text-[10px] italic text-white rounded-md">
                       This field is required
                     </p>
@@ -382,7 +389,7 @@ const NGOInfo = ({ slide, setSlide }: NGOInfoProp) => {
         </div>
       )}
 
-      {slide === 6 && ngoDetails.user_type === "agent" && <SuccessPage />}
+      {slide === 6 && ngoDetails.user_type === "ngo" && <SuccessPage />}
       <AuthFooter />
     </>
   );

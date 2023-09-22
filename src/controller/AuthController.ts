@@ -188,8 +188,26 @@ export const createUserProfile = async (
   setSlide: SetSlide
 ) => {
   setloading(true);
+
+  const config = {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  };
+
+  // let formData = new FormData();
+  // for (let key in data) {
+  //   if (key == "document") {
+  //     if (data[key] != "" && data[key] != undefined && data[key].length != 0) {
+  //       formData.append(`document`, data[key][0]);
+  //     }
+  //   } else {
+  //     formData.append(key, data[key]);
+  //   }
+  // }
+
   await axios
-    .post("usermeta", data)
+    .post("usermeta", data, config)
     .then((response) => {
       if (response.data.status === true) {
         let user = response.data;

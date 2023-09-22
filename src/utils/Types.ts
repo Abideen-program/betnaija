@@ -78,14 +78,14 @@ export type AgentDetails = {
 
 export type NgoDetails = {
   name: string;
-  agent_code?: string;
-  office_address?: string;
-  region?: string;
+  office_address: string;
+  region: string;
   ngo_name: string;
-  personalName?: string;
+  personalName: string;
   cac: string;
   document: string;
   date_of_registration: string
+  website_url: string
 };
 
 // export type AgentDetails = {
