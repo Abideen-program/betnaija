@@ -1,3 +1,5 @@
+import Header from "./Header";
+import Main from "./Main";
 import Sidebar from "./Sidebar";
 
 const Dashboard = () => {
@@ -6,15 +8,8 @@ const Dashboard = () => {
       <div className="flex">
         <Sidebar />
         <div className="border border-green-400 flex-1 h-max">
-          <p>Dashboard</p>
-          <p>Dashboard</p>
-          <p>Dashboard</p>
-          <p>Dashboard</p>
-          <p>Dashboard</p>
-          <p>Dashboard</p>
-          <p>Dashboard</p>
-          <p>Dashboard</p>
-          <p>Dashboard</p>
+          <Header />
+          <Main />
         </div>
       </div>
     </>

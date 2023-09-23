@@ -6,7 +6,7 @@ import { GoSignOut } from "react-icons/go";
 
 const Sidebar = () => {
   return (
-    <div className="w-[20vw] p-5 bg-[#101924] h-[100vh]">
+    <div className="w-[20vw] p-5 bg-[#101924] h-[100vh] border border-[#182536]">
       <div className="flex items-center justify-between">
         <img src={AuthLogo} alt="logo" className="w-[100px]" />
         <div className="h-[40px] w-[40px] flex items-center justify-center rounded-full hover:bg-[#070A0F] cursor-pointer">
