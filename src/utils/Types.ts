@@ -73,7 +73,7 @@ export type AgentDetails = {
   region?: string;
   ngo_name?: string;
   personalName?: string;
-  usertype?: string
+  usertype?: string;
 };
 
 export type NgoDetails = {
@@ -84,14 +84,12 @@ export type NgoDetails = {
   personalName: string;
   cac: string;
   document: string;
-  date_of_registration: string
-  website_url: string
+  date_of_registration: string;
+  website_url: string;
 };
 
-// export type AgentDetails = {
-//   agent_code: string;
-//   office_address: string;
-//   region: string;
-//   firstName?: string;
-//   lastName?: string;
-// };
+export type DataCardProps = {
+  title: string;
+  amount: string;
+  label: string;
+};
