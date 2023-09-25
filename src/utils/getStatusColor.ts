@@ -1,5 +1,7 @@
 export const grantStatusColor = (status: string) => {
   switch (status.toLowerCase()) {
+    case "submitted":
+      return "#F49A21";
     case "draft":
       return "#0FC2DE";
     case "submitted":

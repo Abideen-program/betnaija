@@ -89,3 +89,39 @@ export const declinedGrant = [
     status: "declined",
   },
 ];
+
+export const recentGrant = [
+  {
+    id: 1,
+    title: "Community",
+    amount: 2000,
+    status: "submitted",
+  },
+
+  {
+    id: 2,
+    title: "Health",
+    amount: 3000,
+    status: "draft",
+  },
+
+  {
+    id: 3,
+    title: "Education",
+    amount: 1000,
+    status: "completed",
+  },
+
+  {
+    id: 4,
+    title: "Sport",
+    amount: 4000,
+    status: "declined",
+  },
+  {
+    id: 5,
+    title: "Sport",
+    amount: 4000,
+    status: "disbursed",
+  },
+];
