@@ -1,5 +1,11 @@
 import DataCard from "./DataCard";
 import Table from "./Table";
+import {
+  activeGrant,
+  draftGrant,
+  closedGrant,
+  declinedGrant,
+} from "../../utils/Grant";
 
 const Main = () => {
   return (
@@ -31,10 +37,10 @@ const Main = () => {
 
       <h1 className="text-2xl font-medium mt-14">Grant Status</h1>
       <div className="my-7 grid md:grid-cols-2 gap-6">
-        <Table />
-        <Table />
-        <Table />
-        <Table />
+        <Table data={activeGrant} heading={`ACTIVE GRANTS`} />
+        <Table data={draftGrant} heading={`DRAFT APPLICATIONS`} />
+        <Table data={closedGrant} heading={`CLOSED GRANTS`} />
+        <Table data={declinedGrant} heading={`DECLINED APPLICATIONS`}/>
       </div>
     </div>
   );

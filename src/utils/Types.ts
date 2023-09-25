@@ -93,3 +93,14 @@ export type DataCardProps = {
   amount: string;
   label: string;
 };
+
+export type DashbordGrantTables = {
+  data: {
+    id: number;
+    title: string;
+    amount: number;
+    status: string;
+  }[];
+
+  heading: string;
+};

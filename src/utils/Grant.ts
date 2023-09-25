@@ -3,21 +3,21 @@ export const activeGrant = [
     id: 1,
     title: "Education",
     amount: 5000,
-    status: "active",
+    status: "disbursed",
   },
 
   {
     id: 2,
     title: "Health",
     amount: 10000,
-    status: "active",
+    status: "disbursed",
   },
 
   {
     id: 3,
     title: "sport",
     amount: 15000,
-    status: "active",
+    status: "disbursed",
   },
 ];
 
@@ -49,21 +49,21 @@ export const closedGrant = [
     id: 1,
     title: "Health",
     amount: 1000,
-    status: "disbursed",
+    status: "completed",
   },
 
   {
     id: 2,
     title: "Community",
     amount: 50000,
-    status: "disbursed",
+    status: "completed",
   },
 
   {
     id: 3,
     title: "sport",
     amount: 41000,
-    status: "disbursed",
+    status: "completed",
   },
 ];
 
