@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import AuthLogo from "../../assets/logo.png";
 import { AiOutlineUser } from "react-icons/ai";
 import { MdArrowDropDown } from "react-icons/md";
