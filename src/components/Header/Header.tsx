@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState, useEffect, useRef } from "react";
 import AuthLogo from "../../assets/logo.png";
 import { AiOutlineUser } from "react-icons/ai";
 import { MdArrowDropDown } from "react-icons/md";
@@ -7,7 +7,32 @@ import { SidebarContext } from "../Context/SidebarContext";
 import Dropdown from "./Dropdown";
 
 const Header = () => {
-  const { showSidebar, setShowSidebar } = useContext(SidebarContext);
+  const { showSidebar, setShowSidebar, showDropdown, setShowDropdown } =
+    useContext(SidebarContext);
+
+  const dropRef = useRef(null);
+  const svgRef = useRef(null);
+  const divRef = useRef(null);
+  const p1Ref = useRef(null);
+  const p2Ref = useRef(null);
+
+  useEffect(() => {
+    const closeDropdown = (e: MouseEvent) => {
+      if (
+        e.target !== dropRef.current &&
+        e.target !== svgRef.current &&
+        e.target !== p1Ref.current &&
+        e.target !== p2Ref.current
+      ) {
+        setShowDropdown(false);
+      }
+    };
+
+    document.body.addEventListener("click", closeDropdown);
+
+    return () => document.body.removeEventListener("click", closeDropdown);
+  }, []);
+
   return (
     <div className="relative">
       <div className="bg-[#101924] h-[70px] text-white flex items-center justify-between px-5 md:px-10 border-b border border-[#182536] fixed w-full">
@@ -21,19 +46,29 @@ const Header = () => {
           <img src={AuthLogo} alt="logo" className="w-[100px]" />
         </div>
 
-        <div className="flex items-center gap-3 cursor-pointer">
-          <div className="bg-[#9D72FF] h-[35px] w-[35px] flex items-center justify-center rounded-full">
+        <div
+          ref={dropRef}
+          className="flex items-center gap-3 cursor-pointer"
+          onClick={() => setShowDropdown(!showDropdown)}
+        >
+          <div
+            ref={svgRef}
+            className="bg-[#9D72FF] h-[35px] w-[35px] flex items-center justify-center rounded-full"
+          >
             <AiOutlineUser />
           </div>
-          <div className="hidden md:flex flex-col">
-            <p className="text-xs text-[#136648]">AGENT</p>
-            <p className="text-sm flex items-center gap-2">
+
+          <div ref={divRef} className="hidden md:flex flex-col">
+            <p ref={p1Ref} className="text-[#136648]">
+              AGENT
+            </p>
+            <p ref={p2Ref} className="flex items-center gap-2">
               Abiola Adebiyi <MdArrowDropDown />
             </p>
           </div>
         </div>
       </div>
-      <Dropdown />
+      {showDropdown && <Dropdown />}
     </div>
   );
 };
