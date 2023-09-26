@@ -38,7 +38,7 @@ const ChangePassword = () => {
     <div className="min-h-screen p-5 md:p-0 w-full bg-[#0D141D] flex flex-col items-center justify-center">
       <div className="w-[300px] md:w-[500px] py-5 px-7 flex flex-col md:gap-3 bg-[#363944] rounded-2xl border border-[#B6C6E3]">
         <div className=" mx-auto text-center">
-          <Link to={"/"}>
+          <Link to={"/auth-login"}>
             <img
               src={AuthLogo}
               alt="Betnaija Logo"

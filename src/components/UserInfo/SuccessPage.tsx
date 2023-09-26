@@ -8,7 +8,7 @@ const SuccessPage = () => {
     <div className="min-h-screen md:min-h-[calc(100vh_-_60px)] p-5 md:p-0 w-full bg-[#0D141D] flex flex-col items-center justify-center">
       <div className="w-[300px] md:w-[500px] p-7 flex flex-col md:gap-6 bg-[#363944] rounded-2xl border border-[#B6C6E3]">
         <div className="mx-auto text-center">
-          <Link to={"/"}>
+          <Link to={"/auth-login"}>
             <img
               src={AuthLogo}
               alt="Betnaija Logo"
@@ -33,7 +33,7 @@ const SuccessPage = () => {
           type="submit"
           onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
             e.preventDefault();
-            navigate('/dashboard')
+            navigate('/')
           }}
         >
           Proceed to Dashboard

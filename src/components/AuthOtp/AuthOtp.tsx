@@ -58,8 +58,8 @@ const AuthOtp = () => {
   useEffect(() => {
     const savedUser = JSON.parse(localStorage.getItem("newuser")!);
 
-    if (savedUser.usermeta) {
-      navigate("/");
+    if (savedUser?.usermeta) {
+      navigate("/auth-login");
     }
   }, []);
 
@@ -68,7 +68,7 @@ const AuthOtp = () => {
       <div className="h-[calc(100vh_-_70px)] w-full bg-[#0D141D] flex flex-col items-center justify-center">
         <div className="w-[300px] md:w-[550px] p-5 md:p-10 flex flex-col gap-6 bg-[#363944] rounded-2xl border border-[#B6C6E3]">
           <div className="mx-auto text-center">
-            <Link to={"/"}>
+            <Link to={"/auth-login"}>
               <img
                 src={AuthLogo}
                 alt="Betnaija Logo"

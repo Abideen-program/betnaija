@@ -10,8 +10,8 @@ const UserInfo = () => {
 
   useEffect(() => {
     const savedUser = JSON.parse(localStorage.getItem("newuser")!);
-    if (savedUser.usermeta) {
-      navigate("/");
+    if (savedUser?.usermeta) {
+      navigate("/auth-login");
     }
   }, []);
 

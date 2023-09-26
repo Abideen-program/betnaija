@@ -33,7 +33,7 @@ const AuthReset = () => {
       <div className="h-[calc(100vh_-_60px)] w-full bg-[#0D141D] flex flex-col items-center justify-center">
         <div className="w-[300px] md:w-[500px] p-5 md:p-10 flex flex-col md:gap-6 bg-[#363944] rounded-2xl border border-[#B6C6E3]">
           <div className="mx-auto text-center">
-            <Link to={"/"}>
+            <Link to={"/auth-login"}>
               <img
                 src={AuthLogo}
                 alt="Betnaija Logo"
@@ -98,7 +98,7 @@ const AuthReset = () => {
           </div>
 
           <div className="text-[#B6C6E3] text-center">
-            <Link to={"/"}>
+            <Link to={"/auth-login"}>
               <p className="text-xs md:text-sm text-[#14B151]">
                 Return to login
               </p>

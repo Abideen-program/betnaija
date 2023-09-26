@@ -8,7 +8,7 @@ const Dropdown = () => {
 
   const logoutHandler = () => {
     localStorage.clear();
-    navigate("/");
+    navigate("/auth-login");
     window.location.reload();
   };
 

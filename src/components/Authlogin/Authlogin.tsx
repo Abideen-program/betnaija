@@ -38,7 +38,7 @@ const Authlogin = () => {
     <div className="h-[100vh] w-full bg-[#0D141D] flex flex-col items-center justify-center">
       <div className="min-w-[300px] md:w-[500px] p-5 md:p-10 flex flex-col md:gap-6 bg-[#363944] rounded-2xl border border-[#B6C6E3]">
         <div className="w-[150px] md:w-[210px] mx-auto text-center">
-          <Link to={"/"}>
+          <Link to={"/auth-login"}>
             <img
               src={AuthLogo}
               alt="Betnaija Logo"
@@ -130,7 +130,7 @@ const Authlogin = () => {
         <div className="text-[#B6C6E3] text-center">
           <p className="text-xs md:text-sm">
             You don't have an account?{" "}
-            <Link to={"auth-register"}>
+            <Link to={"/auth-register"}>
               <span className="text-[#14B151]">Register</span>
             </Link>
           </p>

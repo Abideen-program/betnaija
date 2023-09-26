@@ -11,6 +11,10 @@ const App = () => {
   const router = createBrowserRouter([
     {
       path: "/",
+      element: <Dashboard />,
+    },
+    {
+      path: "auth-login",
       element: <Authlogin />,
     },
 
@@ -37,11 +41,6 @@ const App = () => {
     {
       path: "auth-change-password",
       element: <ChangePassword />,
-    },
-
-    {
-      path: "dashboard",
-      element: <Dashboard />,
     },
   ]);
 
